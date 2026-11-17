@@ -5,7 +5,7 @@ const fs = require('fs');
 const app = express();
 app.use(cors());
 app.use(express.json());
-const serviceAccount = require('./serviceAccountKey.json');
+const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
 admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
 let db = { tokens: [], reminders: [] };
 if (fs.existsSync('db.json')) { try { db = JSON.parse(fs.readFileSync('db.json','utf8')); } catch(e){} }
